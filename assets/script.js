@@ -57,13 +57,14 @@ function saveCityHistory() {
 
 
 function displaySearchHistory () {
+    searchHistory.innerHTML = "";
 
     for (let i = 0; i < cityHistory.length; i++) {
         const cityHistoryElement = cityHistory[i];
         console.log(cityHistoryElement)
 
         let searchHistoryButton = document.createElement("div");
-        searchHistoryButton.innerHTML = `<button type="button" class="btn btn-primary btn-lg">${cityHistoryElement}</button>`; 
+        searchHistoryButton.innerHTML = `<button type="button" class="btn btn-secondary btn-lg">${cityHistoryElement}</button>`; 
         searchHistory.prepend(searchHistoryButton);
     }
     
