@@ -4,6 +4,7 @@ let searchHistory = document.querySelector("#history")
 let cityHistory = JSON.parse(localStorage.getItem("cityList")) || [];
 let currentWeatherSection = document.querySelector("#today")
 let currentDate =moment().format("Do MMMM YYYY")
+let forecastSection = document.querySelector("#forecast")
 
 
 displaySearchHistory();         // displays buttons for each city saved in local storage as a search history
@@ -19,7 +20,7 @@ searchButton.addEventListener("click", function(event){
     cityInput = document.querySelector("#search-input").value
     if (cityInput !== "") {
         //if there city input is not empty
-        getWeatherInfo();        //fetch weather info
+        getWeatherInfo(cityInput);        //fetch weather info
         saveCityHistory();       //save searched city in the local storage
         displaySearchHistory();  // updates search history buttons
     }
@@ -30,7 +31,9 @@ searchButton.addEventListener("click", function(event){
 
 searchHistory.addEventListener("click", function (event) {
     if (event.target.matches("button")) {
-        console.log("button test")
+        // console.log("button test");
+        getWeatherInfo(event.target.innerHTML);
+        displayForecast();
     }
 })
 
@@ -38,9 +41,9 @@ searchHistory.addEventListener("click", function (event) {
 //*******************  FUNCTIONS  ***************************
 // fetch weather data
 
-function getWeatherInfo() {
+function getWeatherInfo(city) {
     
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
     .then(response => response.json())
     .then(citiesFound => {
         let firstCity = citiesFound[0];
@@ -108,11 +111,14 @@ function currentWeather(name, icon, temperature, wind, humidity) {
     <div class="container">
       <h1 class= "display-4">${name}</h1>
       <h2 class="display-5">${currentDate}<img src = http://openweathermap.org/img/wn/${icon}@2x.png ></h2>
-      <p>Temperature: ${temperature} </p>
-      <p>Wind: ${wind}</p>
-      <p>Humidity ${humidity}</p>
+      <p>Temperature: ${temperature} °C</p>
+      <p>Wind: ${wind} KPH</p>
+      <p>Humidity: ${humidity}%</p>
     </div>
   </div>`
 }
 
-
+function displayForecast() {
+    console.log("test")
+    
+}
