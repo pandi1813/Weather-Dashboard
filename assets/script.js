@@ -2,10 +2,11 @@ let searchButton = document.querySelector("#search-button");
 let cityInput;
 let searchHistory = document.querySelector("#history")
 
+let cityHistory = JSON.parse(localStorage.getItem("cityList")) || [];
 
 
-displaySearchHistory(JSON.parse(localStorage.getItem("cityList"))[0])
-
+// displaySearchHistory(JSON.parse(localStorage.getItem("cityList"))[0])
+displaySearchHistory();
 searchButton.addEventListener("click", function(event){
     
     event.preventDefault();
@@ -30,10 +31,10 @@ searchButton.addEventListener("click", function(event){
         .then(data => {
             
             console.log(data)
-        })
+        });
         
-        saveCityHistory()
-        
+        saveCityHistory();
+        displaySearchHistory();
     }
 })
 
@@ -44,7 +45,6 @@ searchButton.addEventListener("click", function(event){
 //save search history in local storage
 function saveCityHistory() {
     
-        let cityHistory = JSON.parse(localStorage.getItem("cityList")) || [];
         
         cityHistory.push(cityInput)
         console.log("test " + cityHistory)
@@ -54,8 +54,24 @@ function saveCityHistory() {
 }
 
 //display buttons for search history
-function displaySearchHistory (cityName) {
-    let historyButton = document.createElement("button");
-    historyButton.innerHTML = cityName;
-    searchHistory.prepend(historyButton)
+
+
+function displaySearchHistory () {
+
+    for (let i = 0; i < cityHistory.length; i++) {
+        const cityHistoryElement = cityHistory[i];
+        console.log(cityHistoryElement)
+
+        let searchHistoryButton = document.createElement("div");
+        searchHistoryButton.innerHTML = `<button type="button" class="btn btn-primary btn-lg">${cityHistoryElement}</button>`; 
+        searchHistory.prepend(searchHistoryButton);
+    }
+    
+
+
+
+
+    // let historyButton = document.createElement("button");
+    // historyButton.innerHTML = cityName;
+    // searchHistory.prepend(historyButton)
 }
