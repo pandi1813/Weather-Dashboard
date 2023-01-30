@@ -39,8 +39,8 @@ searchHistory.addEventListener("click", function (event) {
 
 
 //*******************  FUNCTIONS  ***************************
-// fetch weather data
 
+// fetch weather data
 function getWeatherInfo(city) {
     
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
@@ -70,7 +70,7 @@ function getWeatherInfo(city) {
         console.log(data)
         currentWeather(cityName, weatherIcon, weatherTemperature, weatherWindSpeed, weatherHumidity)
     
-        for (let i = 1; i < 6; i++) {
+        for (let i = 1; i < 6; i++) { // want to create 1 card for each day in the forecast section
            let cityForecast = data.list[i];
            let forecastIcon = cityForecast.weather[0].icon;
            let forecastTemp = cityForecast.main.temp;
@@ -143,10 +143,10 @@ function displayForecast(index, icon, temp, wind, humidity) {
     forecastCard.innerHTML =
      `<div class="card ${index}" style="width: 18rem;">
         <div class="card-body">
-             <h5 class="card-title">${icon}</h5>
-             <p class="card-text">${temp}</p>
-             <p class="card-text">${wind}</p>
-             <p class="card-text">${humidity}</p>
+             <h5 class="card-title">http://openweathermap.org/img/wn/${icon}@2x.png</h5>
+             <p class="card-text">Temperature: ${temp}°C</p>
+             <p class="card-text">Wind Speed: ${wind}KPH</p>
+             <p class="card-text">Humidity: ${humidity}%</p>
         </div>
       </div>`;
     forecastSection.append(forecastCard);
