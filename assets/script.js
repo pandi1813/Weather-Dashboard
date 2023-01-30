@@ -49,7 +49,7 @@ function getWeatherInfo(city) {
         let firstCity = citiesFound[0];
         // console.log(firstCity.lat);
         // console.log(firstCity.lon)
-        
+        console.log(citiesFound)
         //using the geo details fetch the weather forecast 
         return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${firstCity.lat}&lon=${firstCity.lon}&units=metric&appid=872873b89a0afdc97c82762a115e655a`);
         
@@ -67,8 +67,21 @@ function getWeatherInfo(city) {
         let weatherHumidity = cityDetails.main.humidity;
         let weatherWindSpeed = cityDetails.wind.speed;
 
-        console.log("temperature: "+cityDetails.main.temp)
+        console.log(data)
         currentWeather(cityName, weatherIcon, weatherTemperature, weatherWindSpeed, weatherHumidity)
+    
+        for (let i = 1; i < 6; i++) {
+           let cityForecast = data.list[i];
+           let forecastIcon = cityForecast.weather[0].icon;
+           let forecastTemp = cityForecast.main.temp;
+           let forecastWind = cityForecast.wind.speed;
+           let forecastHumidity = cityForecast.main.humidity;
+            
+
+
+           displayForecast(i, forecastIcon, forecastTemp, forecastWind, forecastHumidity)
+        }
+
     });
 }
 
@@ -122,18 +135,19 @@ function currentWeather(name, icon, temperature, wind, humidity) {
 
 // display cards for weather forecast
 
-function displayForecast() {
+function displayForecast(index, icon, temp, wind, humidity) {
     forecastSection.innerHTML = "";
 
-    console.log("test");
+    console.log("test " + index);
     let forecastCard = document.createElement("div");
     forecastCard.innerHTML =
-   `<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>`;
-  forecastSection.append(forecastCard);
+     `<div class="card ${index}" style="width: 18rem;">
+        <div class="card-body">
+             <h5 class="card-title">${icon}</h5>
+             <p class="card-text">${temp}</p>
+             <p class="card-text">${wind}</p>
+             <p class="card-text">${humidity}</p>
+        </div>
+      </div>`;
+    forecastSection.append(forecastCard);
 }
