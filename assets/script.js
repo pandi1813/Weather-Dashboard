@@ -43,7 +43,7 @@ searchHistory.addEventListener("click", function (event) {
 // fetch weather data
 function getWeatherInfo(city) {
     
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
     .then(response => response.json())
     .then(citiesFound => {
         let firstCity = citiesFound[0];
@@ -51,7 +51,7 @@ function getWeatherInfo(city) {
         // console.log(firstCity.lon)
         console.log(citiesFound)
         //using the geo details fetch the weather forecast 
-        return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${firstCity.lat}&lon=${firstCity.lon}&units=metric&appid=872873b89a0afdc97c82762a115e655a`);
+        return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${firstCity.lat}&lon=${firstCity.lon}&units=metric&appid=872873b89a0afdc97c82762a115e655a`);
         
     })
     
@@ -125,7 +125,7 @@ function currentWeather(name, icon, temperature, wind, humidity) {
    `<div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class= "display-4">${name}</h1>
-      <h2 class="display-5">${currentDate}<img src = http://openweathermap.org/img/wn/${icon}@2x.png ></h2>
+      <h2 class="display-5">${currentDate}<img src = https://openweathermap.org/img/wn/${icon}@2x.png ></h2>
       <p>Temperature: ${temperature} °C</p>
       <p>Wind: ${wind} KPH</p>
       <p>Humidity: ${humidity}%</p>
@@ -145,7 +145,7 @@ function displayForecast(index, icon, temp, wind, humidity) {
      `<div class="card ${index}" style="width: 18rem;">
         <div class="card-body">
              <h5>${futureDates}</h5>
-             <img alt="weather icon" src ="http://openweathermap.org/img/wn/${icon}@2x.png">
+             <img alt="weather icon" src ="https://openweathermap.org/img/wn/${icon}@2x.png">
              <p class="card-text">Temperature: ${temp}°C</p>
              <p class="card-text">Wind Speed: ${wind}KPH</p>
              <p class="card-text">Humidity: ${humidity}%</p>
