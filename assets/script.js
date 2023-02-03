@@ -66,9 +66,10 @@ function getWeatherInfo(city) {
         let weatherTemperature = cityDetails.main.temp;
         let weatherHumidity = cityDetails.main.humidity;
         let weatherWindSpeed = cityDetails.wind.speed;
-
+        
         console.log(data)
         currentWeather(cityName, weatherIcon, weatherTemperature, weatherWindSpeed, weatherHumidity)
+        forecastSection.innerHTML = "";
     
         for (let i = 1; i < 6; i++) { // want to create 1 card for each day in the forecast section
            let cityForecast = data.list[i];
@@ -90,20 +91,20 @@ function getWeatherInfo(city) {
 //save search history in local storage
 function saveCityHistory() {
     
-        
-        cityHistory.push(cityInput)
-        console.log("test " + cityHistory)
+    
+    cityHistory.push(cityInput)
+    console.log("test " + cityHistory)
         localStorage.setItem("cityList", JSON.stringify(cityHistory));
         console.log("list: "+ localStorage.getItem("cityList"))
+        
+    }
     
-}
-
-//display buttons for search history
-
-function displaySearchHistory () {
-    searchHistory.innerHTML = "";
-
-    for (let i = 0; i < cityHistory.length; i++) {
+    //display buttons for search history
+    
+    function displaySearchHistory () {
+        searchHistory.innerHTML = "";
+        
+        for (let i = 0; i < cityHistory.length; i++) {
         const cityHistoryElement = cityHistory[i];
         // console.log(cityHistoryElement)
 
@@ -136,14 +137,13 @@ function currentWeather(name, icon, temperature, wind, humidity) {
 // display cards for weather forecast
 
 function displayForecast(index, icon, temp, wind, humidity) {
-    forecastSection.innerHTML = "";
 
     console.log("test " + index);
     let forecastCard = document.createElement("div");
     forecastCard.innerHTML =
      `<div class="card ${index}" style="width: 18rem;">
         <div class="card-body">
-             <h5 class="card-title">http://openweathermap.org/img/wn/${icon}@2x.png</h5>
+             <img src ="http://openweathermap.org/img/wn/${icon}@2x.png">
              <p class="card-text">Temperature: ${temp}°C</p>
              <p class="card-text">Wind Speed: ${wind}KPH</p>
              <p class="card-text">Humidity: ${humidity}%</p>
