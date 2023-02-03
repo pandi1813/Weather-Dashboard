@@ -140,10 +140,12 @@ function displayForecast(index, icon, temp, wind, humidity) {
 
     console.log("test " + index);
     let forecastCard = document.createElement("div");
+    let futureDates = moment().add(index, 'days').format("D-MMM-YYYY");
     forecastCard.innerHTML =
      `<div class="card ${index}" style="width: 18rem;">
         <div class="card-body">
-             <img src ="http://openweathermap.org/img/wn/${icon}@2x.png">
+             <h5>${futureDates}</h5>
+             <img alt="weather icon" src ="http://openweathermap.org/img/wn/${icon}@2x.png">
              <p class="card-text">Temperature: ${temp}°C</p>
              <p class="card-text">Wind Speed: ${wind}KPH</p>
              <p class="card-text">Humidity: ${humidity}%</p>
@@ -151,3 +153,5 @@ function displayForecast(index, icon, temp, wind, humidity) {
       </div>`;
     forecastSection.append(forecastCard);
 }
+
+console.log(moment().add(1, 'days').format("D-MMM-YYYY"))
