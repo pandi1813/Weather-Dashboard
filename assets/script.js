@@ -16,15 +16,16 @@ displaySearchHistory();         // displays buttons for each city saved in local
 searchButton.addEventListener("click", function(event){
     
     event.preventDefault();
-    // console.log(event)
+    
     cityInput = document.querySelector("#search-input").value
     if (cityInput !== "") {
         //if there city input is not empty
         getWeatherInfo(cityInput);        //fetch weather info
         saveCityHistory();       //save searched city in the local storage
         displaySearchHistory();  // updates search history buttons
+        document.querySelector('#search-input').value = ""
     }    
-    console.log(localStorage)
+ 
 })    
 
 
@@ -32,7 +33,7 @@ searchButton.addEventListener("click", function(event){
 
 searchHistory.addEventListener("click", function (event) {
     if (event.target.matches("button")) {
-        // console.log("button test");
+        
         getWeatherInfo(event.target.innerHTML);
         displayForecast();
     }    
@@ -44,7 +45,7 @@ let clearBtn = document.querySelector('#clear')
 clearBtn.addEventListener("click", function() {
     localStorage.clear();
     cityHistory = [];
-    console.log(localStorage)
+    
     searchHistory.innerHTML = ""
 })
 
