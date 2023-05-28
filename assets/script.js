@@ -23,8 +23,9 @@ searchButton.addEventListener("click", function(event){
         getWeatherInfo(cityInput);        //fetch weather info
         saveCityHistory();       //save searched city in the local storage
         displaySearchHistory();  // updates search history buttons
-    }
-})
+    }    
+    console.log(localStorage)
+})    
 
 
 
@@ -34,13 +35,24 @@ searchHistory.addEventListener("click", function (event) {
         // console.log("button test");
         getWeatherInfo(event.target.innerHTML);
         displayForecast();
-    }
+    }    
+})    
+
+// clear search history
+let clearBtn = document.querySelector('#clear')
+
+clearBtn.addEventListener("click", function() {
+    localStorage.clear();
+    cityHistory = [];
+    console.log(localStorage)
+    searchHistory.innerHTML = ""
 })
 
 
 //*******************  FUNCTIONS  ***************************
 
 // fetch weather data
+
 function getWeatherInfo(city) {
     
     fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=872873b89a0afdc97c82762a115e655a`)
@@ -49,16 +61,15 @@ function getWeatherInfo(city) {
         let firstCity = citiesFound[0];
         // console.log(firstCity.lat);
         // console.log(firstCity.lon)
-        console.log(citiesFound)
+        // console.log(citiesFound)
         //using the geo details fetch the weather forecast 
         return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${firstCity.lat}&lon=${firstCity.lon}&units=metric&appid=872873b89a0afdc97c82762a115e655a`);
         
-    })
-    
+    })    
     .then(response => response.json())
     .then(data => {
-        // console.log(data.list[0])
-
+        
+        
         // create variables for weather data that can then be passed as parameters
         let cityDetails = data.list[0];
         let cityName = data.city.name;
@@ -67,12 +78,12 @@ function getWeatherInfo(city) {
         let weatherHumidity = cityDetails.main.humidity;
         let weatherWindSpeed = cityDetails.wind.speed;
         
-        console.log(data)
+        // console.log(data)
         currentWeather(cityName, weatherIcon, weatherTemperature, weatherWindSpeed, weatherHumidity)
         forecastSection.innerHTML = "";
     
         for (let i = 1; i < 6; i++) { // want to create 1 card for each day in the forecast section
-           let cityForecast = data.list[i];
+           let cityForecast = data.list[i]; 
            let forecastIcon = cityForecast.weather[0].icon;
            let forecastTemp = cityForecast.main.temp;
            let forecastWind = cityForecast.wind.speed;
@@ -81,10 +92,10 @@ function getWeatherInfo(city) {
 
 
            displayForecast(i, forecastIcon, forecastTemp, forecastWind, forecastHumidity)
-        }
+        }   
 
-    });
-}
+    });    
+}    
 
 
 
@@ -93,11 +104,11 @@ function saveCityHistory() {
     
     
     cityHistory.push(cityInput)
-    console.log("test " + cityHistory)
+    // console.log("test " + cityHistory)
         localStorage.setItem("cityList", JSON.stringify(cityHistory));
-        console.log("list: "+ localStorage.getItem("cityList"))
+        // console.log("list: "+ localStorage.getItem("cityList"))
         
-    }
+    }    
     
     //display buttons for search history
     
@@ -105,23 +116,14 @@ function saveCityHistory() {
         searchHistory.innerHTML = "";
         
         for (let i = 0; i < cityHistory.length; i++) {
-        const cityHistoryElement = cityHistory[i];
+        const cityHistoryElement = cityHistory[i];    
         // console.log(cityHistoryElement)
 
         let searchHistoryButtonDiv = document.createElement("div");
         searchHistoryButtonDiv.innerHTML = `<button type="button" class="btn btn-secondary btn-lg">${cityHistoryElement}</button>`; 
         searchHistory.prepend(searchHistoryButtonDiv);
-    }   
-};
-// clear search history
-let clearBtn = document.querySelector('#clear')
-
-clearBtn.addEventListener("click", function() {
-    localStorage.clear()
-    displaySearchHistory()
-    console.log(localStorage)
-})
-
+    }       
+};    
 
 // display current weather
 
@@ -146,7 +148,7 @@ function currentWeather(name, icon, temperature, wind, humidity) {
 
 function displayForecast(index, icon, temp, wind, humidity) {
 
-    console.log("test " + index);
+    // console.log("test " + index);
     let forecastCard = document.createElement("div");
     let futureDates = moment().add(index, 'days').format("D-MMM-YYYY");
     forecastCard.innerHTML =
