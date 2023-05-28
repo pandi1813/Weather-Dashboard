@@ -113,6 +113,14 @@ function saveCityHistory() {
         searchHistory.prepend(searchHistoryButtonDiv);
     }   
 };
+// clear search history
+let clearBtn = document.querySelector('#clear')
+
+clearBtn.addEventListener("click", function() {
+    localStorage.clear()
+    displaySearchHistory()
+    console.log(localStorage)
+})
 
 
 // display current weather
