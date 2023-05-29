@@ -139,7 +139,7 @@ function currentWeather(name, icon, temperature, wind, humidity) {
    `<div id="jumbotron" class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class= "display-4">${name}</h1>
-      <h2 class="display-5">${currentDate}<img src = https://openweathermap.org/img/wn/${icon}@2x.png ></h2>
+      <h2 class="display-5">${currentDate}</h2>
       <p>Temperature: ${temperature} °C</p>
       <p>Wind: ${wind} KPH</p>
       <p>Humidity: ${humidity}%</p>
