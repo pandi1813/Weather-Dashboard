@@ -78,11 +78,14 @@ function getWeatherInfo(city) {
         let weatherTemperature = cityDetails.main.temp;
         let weatherHumidity = cityDetails.main.humidity;
         let weatherWindSpeed = cityDetails.wind.speed;
-        
-        // console.log(data)
+        let mainWeather = cityDetails.weather[0].main
+        console.log(data)
+        console.log(mainWeather)
         currentWeather(cityName, weatherIcon, weatherTemperature, weatherWindSpeed, weatherHumidity)
         forecastSection.innerHTML = "";
-    
+        setBackground(mainWeather)
+
+
         for (let i = 1; i < 6; i++) { // want to create 1 card for each day in the forecast section
            let cityForecast = data.list[i]; 
            let forecastIcon = cityForecast.weather[0].icon;
@@ -133,7 +136,7 @@ function saveCityHistory() {
 function currentWeather(name, icon, temperature, wind, humidity) {
     // console.log(today)
     currentWeatherSection.innerHTML = 
-   `<div class="jumbotron jumbotron-fluid">
+   `<div id="jumbotron" class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class= "display-4">${name}</h1>
       <h2 class="display-5">${currentDate}<img src = https://openweathermap.org/img/wn/${icon}@2x.png ></h2>
@@ -144,6 +147,31 @@ function currentWeather(name, icon, temperature, wind, humidity) {
   </div>`
 }
 
+//set jumbotron background
+function setBackground(weather) {
+    let jumbotron = document.querySelector('#jumbotron');
+    if (weather === "Clouds") {
+        console.log(jumbotron)
+        jumbotron.style.backgroundImage = 'url(./assets/images/clouds.jpg)'
+    } else if (weather === "Clear") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/clear.jpg)'
+    } else if (weather === "Rain") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/rain.png)'
+        
+    }else if (weather === "Thunderstorm") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/thunder.jpg)'
+        
+    }else if (weather === "Snow") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/snow.jpg)'
+        
+    }else if (weather === "Drizzle") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/drizzle.jpg)'
+        
+    } else if (weather === "Atmosphere") {
+        jumbotron.style.backgroundImage = 'url(./assets/images/fog.jpg)'
+        
+    }
+}
 
 // display cards for weather forecast
 
