@@ -181,7 +181,7 @@ function displayForecast(index, icon, temp, wind, humidity) {
     let forecastCard = document.createElement("div");
     let futureDates = moment().add(index, 'days').format("D-MMM-YYYY");
     forecastCard.innerHTML =
-     `<div class="card ${index}" style="width: 18rem;">
+     `<div class="card ${index} mx-3 mt-2" style="width: 18rem;">
         <div class="card-body">
              <h5>${futureDates}</h5>
              <img alt="weather icon" src ="https://openweathermap.org/img/wn/${icon}@2x.png">
