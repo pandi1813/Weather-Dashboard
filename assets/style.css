@@ -2,6 +2,8 @@
   background-repeat: no-repeat; 
   background-size: cover;
   border-radius: 10px;
+  filter: drop-shadow(5px 5px 4px #7676c0);
+
 }
 .container {
     /* display: inline; */
@@ -9,11 +11,29 @@
     margin: 0;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
     padding: 30px 80px 30px 30px;
+    
 }
 aside {
     margin-top: 5vh;
+    position: relative;
+    left: -7vw;
 }
 
 .card {
     border-radius: 5%;
+    filter: drop-shadow(5px 5px 3px #cdcdd8);
+}
+.btn-secondary {
+    width:  100%;
+    margin: 10px 0;
+    text-align: left;
+    padding-left: 20px;
+    background-color: rgb(215, 234, 250);
+    color: rgb(0, 41, 165);
+    border: none;
+    filter: drop-shadow(5px 5px 4px #7676c0);
+}
+.btn-secondary:hover {
+    background-color: #5574bd;
+    color: rgb(215, 234, 250);
 }
